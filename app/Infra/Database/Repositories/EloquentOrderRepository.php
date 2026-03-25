@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Infra\Database\Repositories;
+
+use App\Domain\Order\Entities\Order;
+use App\Domain\Order\Repository\OrderCriteria;
+use App\Domain\Order\Repository\OrderRepository;
+use App\Domain\Order\Repository\Page;
+use App\Domain\Order\Repository\Pagination;
+use App\Infra\Database\Eloquent\OrderModel;
+use App\Infra\Database\Mappers\OrderMapper;
+use Illuminate\Support\Collection;
+
+class EloquentOrderRepository implements OrderRepository
+{
+    public function save(Order $order): void
+    {
+        $model = OrderModel::find($order->getId()) ?? new OrderModel;
+
+        if (! $model) {
+            $model = OrderMapper::toModel($order);
+        }
+
+        $model->save();
+    }
+
+    public function findMany(OrderCriteria $criteria, Pagination $pagination): Page
+    {
+        $query = OrderModel::query();
+
+        $query
+            ->when($criteria->status, fn ($q) => $q->where('status', $criteria->status))
+            ->when($criteria->userId, fn ($q) => $q->where('user_id', $criteria->userId))
+            ->when($criteria->destination, fn ($q) => $q->where('destination', $criteria->destination))
+            ->when($criteria->departureDateTime, fn ($q) => $q->where('departureDateTime', '>=', $criteria->departureDateTime))
+            ->when($criteria->arrivalDateTime, fn ($q) => $q->where('arrivalDateTime', '<=', $criteria->arrivalDateTime));
+
+        $result = $query->paginate(
+            perPage: $pagination->perPage,
+            page: $pagination->page
+        );
+
+        return new Page(
+            items: collect($result->items())->map(
+                fn (OrderModel $model) => OrderMapper::toDomain($model)
+            ),
+            total: $result->total(),
+            page: $result->currentPage(),
+            perPage: $result->perPage(),
+        );
+    }
+
+    public function findOrderById(string $id): ?Order
+    {
+        $model = OrderModel::find($id);
+
+        if (is_null($model)) {
+            return null;
+        }
+
+        return OrderMapper::toDomain($model);
+    }
+
+    /**
+     * @return Collection<Order>
+     */
+    public function findOrdersByUserId(string $userId): Collection
+    {
+        $models = collect(OrderModel::where('user_id', $userId)->orderBy('created_at', 'desc')->get());
+
+        return $models->map(fn ($model) => OrderMapper::toDomain($model));
+    }
+}
