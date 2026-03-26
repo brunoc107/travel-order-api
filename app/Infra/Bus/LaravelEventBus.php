@@ -5,10 +5,10 @@ namespace App\Infra\Bus;
 use App\Domain\Shared\EventBus;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class LaravelEventBus implements EventBus
+readonly class LaravelEventBus implements EventBus
 {
     public function __construct(
-        private readonly Dispatcher $dispatcher
+        private Dispatcher $dispatcher
     ) {}
 
     public function dispatch(object $event): void

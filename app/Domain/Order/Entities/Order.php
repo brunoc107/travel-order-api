@@ -151,7 +151,7 @@ class Order
 
     public function approve(): void
     {
-        $this->state->approve();
+        $this->state = $this->state->approve();
         $this->record(new OrderApproved(
             $this->id,
             $this->userId,
@@ -161,7 +161,7 @@ class Order
 
     public function cancel(): void
     {
-        $this->state->cancel();
+        $this->state = $this->state->cancel();
         $this->record(new OrderCanceled(
             $this->id,
             $this->userId,

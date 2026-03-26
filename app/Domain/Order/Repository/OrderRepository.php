@@ -14,7 +14,7 @@ interface OrderRepository
      */
     public function findMany(OrderCriteria $criteria, Pagination $pagination): Page;
 
-    public function findOrderById(string $id): ?Order;
+    public function findOrderById(string $id, ?string $userId = null): ?Order;
 
     /**
      * @return Collection<Order>

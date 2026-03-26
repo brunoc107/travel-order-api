@@ -15,9 +15,12 @@ class EloquentOrderRepository implements OrderRepository
 {
     public function save(Order $order): void
     {
-        $model = OrderModel::find($order->getId()) ?? new OrderModel;
+        $model = OrderModel::find($order->getId());
 
-        if (! $model) {
+        if ($model) {
+            $updatedModel = OrderMapper::toModel($order);
+            $model->fill($updatedModel->getAttributes());
+        } else {
             $model = OrderMapper::toModel($order);
         }
 
@@ -35,7 +38,7 @@ class EloquentOrderRepository implements OrderRepository
             ->when($criteria->departureDateTime, fn ($q) => $q->where('departureDateTime', '>=', $criteria->departureDateTime))
             ->when($criteria->arrivalDateTime, fn ($q) => $q->where('arrivalDateTime', '<=', $criteria->arrivalDateTime));
 
-        $result = $query->paginate(
+        $result = $query->orderBy('created_at')->paginate(
             perPage: $pagination->perPage,
             page: $pagination->page
         );
@@ -50,11 +53,17 @@ class EloquentOrderRepository implements OrderRepository
         );
     }
 
-    public function findOrderById(string $id): ?Order
+    public function findOrderById(string $id, ?string $userId = null): ?Order
     {
-        $model = OrderModel::find($id);
+        $query = OrderModel::query()->where('id', $id);
 
-        if (is_null($model)) {
+        if ($userId) {
+            $query->where('user_id', $userId);
+        }
+
+        $model = $query->first();
+
+        if (! $model) {
             return null;
         }
 

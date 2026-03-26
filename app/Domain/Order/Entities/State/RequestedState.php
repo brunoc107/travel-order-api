@@ -13,7 +13,7 @@ class RequestedState implements OrderState
 
     public function approve(): OrderState
     {
-        return new RequestedState;
+        return new ApprovedState;
     }
 
     public function cancel(): OrderState

@@ -6,35 +6,15 @@ use Domain\User\ValueObjects\UserRole;
 
 class User
 {
-    private string $id {
-        get {
-            return $this->id;
-        }
-    }
+    private string $id;
 
-    private string $name {
-        get {
-            return $this->name;
-        }
-    }
+    private string $name;
 
-    private string $email {
-        get {
-            return $this->email;
-        }
-    }
+    private string $email;
 
-    private string $password {
-        get {
-            return $this->password;
-        }
-    }
+    private string $password;
 
-    private UserRole $role {
-        get {
-            return $this->role;
-        }
-    }
+    private UserRole $role;
 
     public function __construct(string $id, string $name, string $email, string $password, UserRole $role)
     {
@@ -43,6 +23,31 @@ class User
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getRole(): UserRole
+    {
+        return $this->role;
     }
 
     public function isAdmin(): bool

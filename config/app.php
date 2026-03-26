@@ -1,13 +1,6 @@
 <?php
 
-use App\Infra\Providers\OrderServiceProvider;
-
 return [
-
-    'providers' => [
-        OrderServiceProvider::class,
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Application Name

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Order\Services;
+namespace App\Application\Order\UseCases;
 
 use App\Domain\Order\Entities\Order;
 use App\Domain\Order\Repository\OrderRepository;
@@ -12,7 +12,7 @@ readonly class CreateOrderUseCase
 {
     public function __construct(
         private OrderRepository $orderRepository,
-        private EventBus        $eventBus
+        private EventBus $eventBus
     ) {}
 
     public function execute(
@@ -35,6 +35,6 @@ readonly class CreateOrderUseCase
 
         $this->eventBus->dispatchAll($order->pullEvents());
 
-        return $order->getId();
+        return $order;
     }
 }

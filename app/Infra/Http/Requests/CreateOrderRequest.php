@@ -2,9 +2,9 @@
 
 namespace App\Infra\Http\Requests;
 
-use Whoops\Exception\Formatter;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CreateOrderRequest extends Formatter
+class CreateOrderRequest extends FormRequest
 {
     public function rules(): array
     {

@@ -2,8 +2,8 @@
 
 namespace App\Domain\Order\Entities\State;
 
+use App\Domain\Order\Exception\InvalidOrderActionException;
 use App\Domain\Order\ValueObjects\OrderStatus;
-use DomainException;
 
 class ApprovedState implements OrderState
 {
@@ -14,11 +14,11 @@ class ApprovedState implements OrderState
 
     public function approve(): OrderState
     {
-        throw new DomainException('Order already approved');
+        throw new InvalidOrderActionException('Order already approved');
     }
 
     public function cancel(): OrderState
     {
-        throw new DomainException('Approved order cannot be canceled');
+        throw new InvalidOrderActionException('Approved order cannot be canceled');
     }
 }
