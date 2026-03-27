@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Infra\Http\Controllers;
+namespace App\Infra\Http\Controllers\Auth;
 
 use App\Infra\Database\Eloquent\User;
+use App\Infra\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

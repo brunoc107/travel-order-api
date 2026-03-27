@@ -3,7 +3,7 @@
 namespace App\Infra\Http\Controllers\Order;
 
 use App\Application\Order\UseCases\GetOrderUseCase;
-use App\Infra\Http\resources\Order\OrderResource;
+use App\Infra\Http\Resources\Order\OrderResource;
 use Domain\User\ValueObjects\UserRole;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;

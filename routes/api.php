@@ -1,6 +1,6 @@
 <?php
 
-use App\Infra\Http\Controllers\AuthController;
+use App\Infra\Http\Controllers\Auth\AuthController;
 use App\Infra\Http\Controllers\Order\ApproveOrderController;
 use App\Infra\Http\Controllers\Order\CancelOrderController;
 use App\Infra\Http\Controllers\Order\CreateOrderController;

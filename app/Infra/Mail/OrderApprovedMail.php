@@ -5,7 +5,6 @@ namespace App\Infra\Mail;
 use DateTimeImmutable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -14,13 +13,6 @@ class OrderApprovedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @param string $user
-     * @param string $orderId
-     * @param string $destination
-     * @param DateTimeImmutable $departureDate
-     * @param DateTimeImmutable $arrivalDate
-     */
     public function __construct(
         private readonly string $user,
         private readonly string $orderId,

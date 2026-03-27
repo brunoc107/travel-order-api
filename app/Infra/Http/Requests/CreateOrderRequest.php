@@ -10,7 +10,7 @@ class CreateOrderRequest extends FormRequest
     {
         return [
             'destination' => 'required|string',
-            'departureDate' => 'required|date',
+            'departureDate' => 'required|date|date_format:Y-m-d',
             'arrivalDate' => 'required|date|after:departureDate',
         ];
     }

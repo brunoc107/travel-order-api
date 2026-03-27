@@ -3,7 +3,6 @@
 namespace App\Infra\Http\Requests;
 
 use App\Domain\Order\ValueObjects\OrderStatus;
-use App\Infra\Database\Eloquent\OrderModel;
 use DateTimeImmutable;
 use Illuminate\Foundation\Http\FormRequest;
 

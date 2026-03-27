@@ -32,11 +32,11 @@ class SendOrderCanceledMailNotification implements ShouldQueue
         }
         Mail::to($user->email)
             ->send(new OrderCanceledMail(
-                    $user->name,
-                    $order->getId(),
-                    $order->getDestination(),
-                    $order->getDepartureDate(),
-                    $order->getArrivalDate())
+                $user->name,
+                $order->getId(),
+                $order->getDestination(),
+                $order->getDepartureDate(),
+                $order->getArrivalDate())
             );
     }
 }

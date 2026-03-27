@@ -32,11 +32,11 @@ class SendOrderApprovedMailNotification implements ShouldQueue
         }
         Mail::to($user->email)
             ->send(new OrderApprovedMail(
-                    $user->name,
-                    $order->getId(),
-                    $order->getDestination(),
-                    $order->getDepartureDate(),
-                    $order->getArrivalDate())
+                $user->name,
+                $order->getId(),
+                $order->getDestination(),
+                $order->getDepartureDate(),
+                $order->getArrivalDate())
             );
     }
 }

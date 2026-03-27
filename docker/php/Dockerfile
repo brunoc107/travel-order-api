@@ -43,7 +43,6 @@ ENV ENABLE_CACHE=true
 
 COPY --from=builder /var/www /var/www
 
-# Entrypoint
 COPY docker/php/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

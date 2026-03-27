@@ -6,7 +6,7 @@ use App\Application\Order\UseCases\ListOrdersUseCase;
 use App\Domain\Order\Repository\OrderCriteria;
 use App\Domain\Order\Repository\Pagination;
 use App\Infra\Http\Requests\ListOrdersRequest;
-use App\Infra\Http\resources\Order\OrderCollectionResource;
+use App\Infra\Http\Resources\Order\OrderCollectionResource;
 use Domain\User\ValueObjects\UserRole;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
