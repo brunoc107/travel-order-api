@@ -47,21 +47,6 @@ services:
       - redis
     command: php artisan queue:work redis --queue=mail
 
-  worker-sms:
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
-    env_file:
-      - .env
-    environment:
-      ENABLE_CACHE: false
-    volumes:
-      - ./:/var/www
-    depends_on:
-      - mysql
-      - redis
-    command: php artisan queue:work redis --queue=sms
-
   nginx:
     image: nginx:alpine
     container_name: laravel_nginx
