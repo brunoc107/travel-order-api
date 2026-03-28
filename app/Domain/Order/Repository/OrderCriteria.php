@@ -8,10 +8,10 @@ use DateTimeImmutable;
 class OrderCriteria
 {
     public function __construct(
-        public ?OrderStatus $status,
-        public ?string $userId,
-        public ?string $destination,
-        public ?DateTimeImmutable $departureDateTime,
-        public ?DateTimeImmutable $arrivalDateTime,
+        public ?OrderStatus $status = null,
+        public ?string $userId = null,
+        public ?string $destination = null,
+        public ?DateTimeImmutable $departureDateTime = null,
+        public ?DateTimeImmutable $arrivalDateTime = null,
     ) {}
 }

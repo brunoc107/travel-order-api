@@ -3,6 +3,7 @@
 namespace App\Application\Order\UseCases;
 
 use App\Domain\Order\Entities\Order;
+use App\Domain\Order\Exception\OrderNotFoundException;
 use App\Domain\Order\Repository\OrderRepository;
 
 readonly class GetOrderUseCase
@@ -11,12 +12,12 @@ readonly class GetOrderUseCase
         private OrderRepository $orderRepository,
     ) {}
 
-    public function execute(string $id, ?string $userId): ?Order
+    public function execute(string $id, ?string $userId = null): Order
     {
         $order = $this->orderRepository->findOrderById($id, $userId);
 
         if (! $order) {
-            return null;
+            throw new OrderNotFoundException('Order not found');
         }
 
         return $order;

@@ -2,6 +2,7 @@
 
 namespace App\Application\Order\UseCases;
 
+use App\Domain\Order\Exception\OrderNotFoundException;
 use App\Domain\Order\Repository\OrderRepository;
 use App\Domain\Shared\EventBus;
 
@@ -12,9 +13,16 @@ readonly class ApproveOrderUseCase
         private EventBus $eventBus
     ) {}
 
+    /**
+     * @throws OrderNotFoundException
+     */
     public function execute(string $orderId): void
     {
         $order = $this->orderRepository->findOrderById($orderId, null);
+
+        if (! $order) {
+            throw new OrderNotFoundException('Order not found');
+        }
 
         $order->approve();
 

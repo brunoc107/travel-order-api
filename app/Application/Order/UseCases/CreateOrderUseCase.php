@@ -21,7 +21,7 @@ readonly class CreateOrderUseCase
         string $destination,
         DateTimeImmutable $departureDate,
         DateTimeImmutable $arrivalDate,
-    ) {
+    ): Order {
         $order = Order::create(
             id: Str::ulid()->toString(),
             userId: $userId,

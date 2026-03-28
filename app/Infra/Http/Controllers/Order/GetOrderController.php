@@ -3,6 +3,7 @@
 namespace App\Infra\Http\Controllers\Order;
 
 use App\Application\Order\UseCases\GetOrderUseCase;
+use App\Domain\Order\Exception\OrderNotFoundException;
 use App\Infra\Http\Resources\Order\OrderResource;
 use Domain\User\ValueObjects\UserRole;
 use Illuminate\Http\JsonResponse;
@@ -17,19 +18,19 @@ class GetOrderController extends Controller
     public function __invoke(
         string $orderId,
     ): JsonResponse|JsonResource {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $userId = null;
-        if ($user->role !== UserRole::ADMIN) {
-            $userId = $user->id;
+            $userId = null;
+            if ($user->role !== UserRole::ADMIN) {
+                $userId = $user->id;
+            }
+
+            $order = $this->useCase->execute($orderId, $userId);
+
+            return new OrderResource($order);
+        } catch (OrderNotFoundException $e) {
+            return response()->json(['message' => $e->getMessage()], 404);
         }
-
-        $order = $this->useCase->execute($orderId, $userId);
-
-        if (! $order) {
-            return response()->json(['message' => 'Order not found'], 404);
-        }
-
-        return new OrderResource($order);
     }
 }

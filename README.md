@@ -3,7 +3,6 @@
 Este projeto visa demonstrar a utilização do Laravel na criação de uma API (microsserviço) para a gestão de um fluxo
 básico de pedidos de viagem.
 
-
 ## Tecnologias usadas
 
 | Uso                  | Serviço        | Versão                                        |
@@ -42,7 +41,11 @@ Ao iniciar os containers, as migrations e os seeders devem executar sem problema
 
 ## Testes
 
-<div style="color: red;">Em desenvolovimento</div>
+Foram implementados testes unitários para o domínio Order (pedido). Para executálos, podemos usar o comando a seguir:
+
+``` shell
+composer test
+```
 
 ## Linting
 

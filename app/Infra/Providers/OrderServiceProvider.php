@@ -5,7 +5,7 @@ namespace App\Infra\Providers;
 use App\Domain\Order\Repository\OrderRepository;
 use App\Domain\Shared\EventBus;
 use App\Infra\Bus\LaravelEventBus;
-use App\Infra\Database\Repositories\EloquentOrderRepository;
+use App\Infra\Database\Repository\EloquentOrderRepository;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 

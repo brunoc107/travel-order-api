@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infra\Database\Repositories;
+namespace App\Infra\Database\Repository;
 
 use App\Domain\Order\Entities\Order;
 use App\Domain\Order\Repository\OrderCriteria;
@@ -8,7 +8,7 @@ use App\Domain\Order\Repository\OrderRepository;
 use App\Domain\Order\Repository\Page;
 use App\Domain\Order\Repository\Pagination;
 use App\Infra\Database\Eloquent\OrderModel;
-use App\Infra\Database\Mappers\OrderMapper;
+use App\Infra\Database\Mapper\OrderMapper;
 use Illuminate\Support\Collection;
 
 class EloquentOrderRepository implements OrderRepository

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infra\Database\Mappers;
+namespace App\Infra\Database\Mapper;
 
 use App\Domain\Order\Entities\Order;
 use App\Domain\Order\Entities\State\OrderStateFactory;
