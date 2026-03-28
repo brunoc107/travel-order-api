@@ -3,6 +3,9 @@
 Este projeto visa demonstrar a utilização do Laravel na criação de uma API (microsserviço) para a gestão de um fluxo
 básico de pedidos de viagem.
 
+## Desenho da solução
+![plot](./docs/images/architecture.png)
+
 ## Caminhos e decisões
 
 Resolvi implementar usando o básico de DDD na funcionalidade de pedidos, bem como alguns conceitos de Arquitetura Limpa
@@ -135,6 +138,3 @@ O envio é feito via SMTP para um mock de email. Para que possa ser validado, po
 via [http://localhost:8100/](http://localhost:8100/).
 
 Foram criados templates blade básicos para demonstração.
-
-## Desenho da solução
-![plot](./docs/images/architecture.png)
