@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Infra\Database\Eloquent\OrderModel;
 use App\Infra\Database\Eloquent\User;
 use Domain\User\ValueObjects\UserRole;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::firstOrCreate(
-            ['email' => 'user@example.com'],
+            ['email' => 'john@example.com'],
             [
                 'name' => 'John Doe',
                 'password' => 'password',

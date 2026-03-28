@@ -30,7 +30,7 @@ class ListOrdersUseCaseTest extends TestCase
             collect([$order]),
             1, 1, 1,
         ));
-        $result = $this->useCase->execute(new OrderCriteria(), new Pagination(1, 10));
+        $result = $this->useCase->execute(new OrderCriteria, new Pagination(1, 10));
 
         $this->assertInstanceOf(Page::class, $result);
         $this->assertCount(1, $result->items->toArray());

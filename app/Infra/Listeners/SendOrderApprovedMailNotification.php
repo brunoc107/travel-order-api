@@ -30,6 +30,7 @@ class SendOrderApprovedMailNotification implements ShouldQueue
         if (! $user) {
             return;
         }
+
         Mail::to($user->email)
             ->send(new OrderApprovedMail(
                 $user->name,

@@ -35,8 +35,8 @@ class EloquentOrderRepository implements OrderRepository
             ->when($criteria->status, fn ($q) => $q->where('status', $criteria->status))
             ->when($criteria->userId, fn ($q) => $q->where('user_id', $criteria->userId))
             ->when($criteria->destination, fn ($q) => $q->where('destination', $criteria->destination))
-            ->when($criteria->departureDateTime, fn ($q) => $q->where('departureDateTime', '>=', $criteria->departureDateTime))
-            ->when($criteria->arrivalDateTime, fn ($q) => $q->where('arrivalDateTime', '<=', $criteria->arrivalDateTime));
+            ->when($criteria->departureDateTime, fn ($q) => $q->where('departure_date', '>=', $criteria->departureDateTime))
+            ->when($criteria->arrivalDateTime, fn ($q) => $q->where('arrival_date', '<=', $criteria->arrivalDateTime));
 
         $result = $query->orderBy('created_at')->paginate(
             perPage: $pagination->perPage,
