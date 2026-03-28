@@ -10,7 +10,6 @@ use App\Infra\Http\Resources\Order\OrderCollectionResource;
 use Domain\User\ValueObjects\UserRole;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use OpenApi\Attributes as OA;
 
 class ListOrdersController extends Controller
