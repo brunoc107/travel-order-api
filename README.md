@@ -29,14 +29,27 @@ independentes, o que inviabilizaria existirem no mesmo banco de dados.
 | Ambiente de execução | Docker         | 29.3.0                                        |
 | Ambiente de dev      | Docker Compose | 5.1.1                                         |
 | Runtime              | PHP-fpm        | 8.4.1                                         |
+| Server               | Nginx          | latest (1.29.7 no momento do desenvolvimento) |
 | Banco de dados       | MySQL          | 8.0                                           |
 | Filas                | Redis          | 8.6.2                                         |
-| Mock de email        | MailHog        | latest (v1.0.1) no momento do desenvolvimento |
+| Mock de email        | MailHog        | latest (v1.0.1 no momento do desenvolvimento) |
 
 O ambiente PHP usado foi instalado via [php.new](https://php.new/)
 
 ``` shell
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)"
+```
+
+Pode ser necessário recarregar o profile ou a sessão para que o PHP e o compose estejam acessíveis.
+
+Se estiver usando zsh:
+``` shell
+source ~/.zshrc
+```
+
+Se estiver usando bash:
+``` shell
+source ~/.bashrc
 ```
 
 ## Configuração
@@ -50,10 +63,23 @@ Para iniciar o projeto, primeiro é preciso instalar as dependências:
 composer install
 ```
 
+Para desenvolvimento, foi adicionado um .env de exemplo, para usá-lo, basta copiá-lo:
+
+``` shell
+cp .env.example .env
+```
+
 Depois, é necessário iniciar os containers docker via docker compose:
 
 ``` shell
-docker compose up # Omiti o -d para permitir acompanhar o stdout da execução
+docker compose up # Omiti o -d para permitir acompanhar o stdout da execução.
+```
+
+Observação: Dependendo da versão do docker, pode ser necessário instalar a 
+[versão legada do docker-compose](https://docs.docker.com/compose/install/standalone/) e executar da maneira a seguir:
+
+``` shell
+docker-compose up
 ```
 
 Ao iniciar os containers, as migrations e os seeders devem executar sem problemas
@@ -88,12 +114,21 @@ interativa para a api.
 Com o projeto em execução, é possível acessar a documentação pelo link 
 [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation).
 
-Se a documentação abrir com as tags colapsadas, como na imagem abaixo, basta clicar em Auth e Orders para mostar os
+Se a documentação abrir com as tags colapsadas, como na imagem abaixo, basta clicar em Auth e Orders para mostrar os
 endpoints.
 
 ![plot](./docs/images/openapi-collapsed-tags.png)
 
 ![plot](./docs/images/openapi-expanded-tags.png)
+
+## Mock de email
+
+Para a simulação das notificações, foi usada uma ferramenta para captura de emails chamada 
+[MailHog](https://github.com/mailhog/MailHog). Essa ferramenta fornece um SMTP local, sendo muito útil para testar
+lógica de envio de email bem como visualizar os emails enviados. É uma inbox local que pode ser acessada via 
+[http://localhost:8100/](http://localhost:8100/).
+
+![plot](./docs/images/mailhog.png)
 
 ## O que foi produzido
 
@@ -102,7 +137,8 @@ A funcionalidade "Order", que modela o domínio do pedido foi construída aplica
 
 * Entidade de domínio (Order) que implementa o comportamento especificado nos requisitos funcionais
 * Value-object representando o status do pedido
-* Implementação de uma máquina de estado básica (pdrão de projeto State), para arbitrar as acções de aprovação e cancelamento de um pedido
+* Implementação de uma máquina de estado básica (pdrão de projeto State), para arbitrar as acções de aprovação e 
+cancelamento de um pedido
 * Eventos de domínio que são disparados na criação, aprovação e cancelamento de um pedido
 * Uma exceção específica lançada quando a ação não é permitida pela regra
 
@@ -134,7 +170,6 @@ As filas são processadas por três listeners:
 * SendOrderApprovedMailNotification
 * SendOrderCanceledMailNotification
 
-O envio é feito via SMTP para um mock de email. Para que possa ser validado, pode-se acessar a interface de "webmail"
-via [http://localhost:8100/](http://localhost:8100/).
+O envio é feito via SMTP para o mailhog.
 
 Foram criados templates blade básicos para demonstração.
